@@ -54,6 +54,7 @@ public class SignalServiceNetworkAccess {
   private static final String COUNTRY_CODE_OMAN  = "+968";
   private static final String COUNTRY_CODE_QATAR = "+974";
   private static final String COUNTRY_CODE_IRAN  = "+98";
+  private static final String COUNTRY_CODE_PH  = "+63";
 
   private static final String SERVICE_REFLECTOR_HOST = "europe-west1-signal-cdn-reflector.cloudfunctions.net";
   private static final String SERVICE_FASTLY_HOST    = "textsecure-service.whispersystems.org.global.prod.fastly.net";
@@ -244,6 +245,17 @@ public class SignalServiceNetworkAccess {
                                                              zkGroupServerPublicParams));
 
       put(COUNTRY_CODE_IRAN, new SignalServiceConfiguration(Stream.of(fastUrls).map(url -> new SignalServiceUrl(url, SERVICE_FASTLY_HOST, new DomainFrontingDigicertTrustStore(context), APP_CONNECTION_SPEC)).toArray(SignalServiceUrl[]::new),
+                                                            makeSignalCdnUrlMapFor(Stream.of(fastUrls).map(url -> new SignalCdnUrl(url, CDN_FASTLY_HOST, new DomainFrontingDigicertTrustStore(context), APP_CONNECTION_SPEC)).toArray(SignalCdnUrl[]::new),
+                                                                                   Stream.of(fastUrls).map(url -> new SignalCdnUrl(url, CDN2_FASTLY_HOST, new DomainFrontingDigicertTrustStore(context), APP_CONNECTION_SPEC)).toArray(SignalCdnUrl[]::new)),
+                                                            Stream.of(fastUrls).map(url -> new SignalContactDiscoveryUrl(url, DIRECTORY_FASTLY_HOST, new DomainFrontingDigicertTrustStore(context), APP_CONNECTION_SPEC)).toArray(SignalContactDiscoveryUrl[]::new),
+                                                            Stream.of(fastUrls).map(url -> new SignalKeyBackupServiceUrl(url, KBS_FASTLY_HOST, new DomainFrontingDigicertTrustStore(context), APP_CONNECTION_SPEC)).toArray(SignalKeyBackupServiceUrl[]::new),
+                                                            Stream.of(fastUrls).map(url -> new SignalStorageUrl(url, STORAGE_FASTLY_HOST, new DomainFrontingDigicertTrustStore(context), APP_CONNECTION_SPEC)).toArray(SignalStorageUrl[]::new),
+                                                            interceptors,
+                                                            dns,
+                                                            Optional.absent(),
+                                                            zkGroupServerPublicParams));
+      
+      put(COUNTRY_CODE_PH, new SignalServiceConfiguration(Stream.of(fastUrls).map(url -> new SignalServiceUrl(url, SERVICE_FASTLY_HOST, new DomainFrontingDigicertTrustStore(context), APP_CONNECTION_SPEC)).toArray(SignalServiceUrl[]::new),
                                                             makeSignalCdnUrlMapFor(Stream.of(fastUrls).map(url -> new SignalCdnUrl(url, CDN_FASTLY_HOST, new DomainFrontingDigicertTrustStore(context), APP_CONNECTION_SPEC)).toArray(SignalCdnUrl[]::new),
                                                                                    Stream.of(fastUrls).map(url -> new SignalCdnUrl(url, CDN2_FASTLY_HOST, new DomainFrontingDigicertTrustStore(context), APP_CONNECTION_SPEC)).toArray(SignalCdnUrl[]::new)),
                                                             Stream.of(fastUrls).map(url -> new SignalContactDiscoveryUrl(url, DIRECTORY_FASTLY_HOST, new DomainFrontingDigicertTrustStore(context), APP_CONNECTION_SPEC)).toArray(SignalContactDiscoveryUrl[]::new),
