@@ -25,7 +25,7 @@ jobs:
       uses: gradle/wrapper-validation-action@v1
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew qa
 
     - name: Archive APKs
       uses: actions/upload-artifact@v2
